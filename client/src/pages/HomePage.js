@@ -1,5 +1,6 @@
 import React from 'react'
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import Login from '../Components/Login';
 import "./HomePage.css";
 
@@ -33,6 +34,9 @@ function HomePage() {
         }
     }
 
+
+
+
     return (
         <div>
             <div className="start">
@@ -49,7 +53,7 @@ function HomePage() {
                         </ul>
                     </div>
                     <div className="login">
-                        Login
+                        <Link style={{ color: 'white' }} to='/auth'>Login</Link>
                     </div>
                     <div className="cart">
                         <img className="left" src="img/cart-icon.svg" alt=""></img>
@@ -78,10 +82,15 @@ function HomePage() {
                 </section>
             </div>
             {/* <!----------------------------------------------------------------------     --> */}
+            <section id="flow">
+                <div className="img flex">
+                    <img src="img/Etherficate website-flow.png" alt="" />
+                </div>
+            </section>
             <section id="courses">
                 <div className="courses-header flex">
                     <div className="description">
-                        <h1>Featured Courses</h1>
+                        <h1> Courses</h1>
                         <h3>Start, switch, or advance your career with more than 5,200 courses.</h3>
                     </div>
                     <div className="link">
@@ -199,7 +208,7 @@ function HomePage() {
                     </div>
                 </div>
             </section>
-            <section id="category">
+            {/* <section id="category">
                 <div className="category-header flex">
                     <h1>Popular Categories</h1>
                     <h3>Accelerate your growth by learning the most popular courses</h3>
@@ -211,7 +220,7 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="/" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -219,7 +228,7 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="/" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -227,7 +236,7 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="/" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -235,7 +244,7 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="/" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -243,7 +252,7 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="#" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -251,7 +260,16 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="#" className="btn">View Course</Link>
+                            </div>
+                        </div>
+
+                        <div className="cat">
+                            <img src="img/dev-cat-img.jpg" className="card-img-top" alt="..." />
+                            <div className="card-body">
+                                <h5 className="card-title">Course Category</h5>
+                                <p className="card-text">5 Courses</p>
+                                <Link to="#" className="btn">View Course</Link>
                             </div>
                         </div>
                         <div className="cat">
@@ -259,25 +277,13 @@ function HomePage() {
                             <div className="card-body">
                                 <h5 className="card-title">Course Category</h5>
                                 <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
-                            </div>
-                        </div>
-                        <div className="cat">
-                            <img src="img/dev-cat-img.jpg" className="card-img-top" alt="..." />
-                            <div className="card-body">
-                                <h5 className="card-title">Course Category</h5>
-                                <p className="card-text">5 Courses</p>
-                                <a href="#" className="btn">View Course</a>
+                                <Link to="#" className="btn">View Course</Link>
                             </div>
                         </div>
                     </div>
                 </div>
-            </section>
-            <section id="flow">
-                <div className="img flex">
-                    <img src="img/Etherficate website-flow.png" alt="" />
-                </div>
-            </section>
+            </section> */}
+
             <div className="last">
                 <ul>
                     <li> <span>&copy;</span> Copyright ©2022 | Etherficate</li>

@@ -1,0 +1,93 @@
+.quiz-creator {
+    width: 100%;
+    /* max-width: 800px; */
+    margin: 0 auto;
+    padding: 20px;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.quiz-creator h2 {
+    font-size: 24px;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+.question-container input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.options-container {
+    margin-top: 10px;
+}
+
+.option-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.option-container input[type="text"] {
+    flex: 1;
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #cccccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-right: 10px;
+}
+
+.remove-option-btn {
+    background-color: #ff6666;
+    color: #ffffff;
+    border: none;
+    padding: 5px;
+    font-size: 16px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.add-option-btn {
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-question-btn {
+    background-color: #2196f3;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+    margin-right: 10px;
+}
+
+.submit-btn {
+    background-color: #4caf50;
+    color: #ffffff;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
