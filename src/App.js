@@ -45,7 +45,7 @@ function App() {
       return
     }
 
-    setIsWaiting(true)
+    // setIsWaiting(true)
 
     // Call AI API to generate a image based on description
     const imageData = await createImage()
@@ -89,13 +89,13 @@ function App() {
 const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
-const image = new Image();
-image.src = "/Users/atmajkoppikar/Desktop/ai_nft_generator/Certificate_template.png";
+const cert = new Image();
+cert.src = "/Users/atmajkoppikar/Desktop/ai_nft_generator/Certificate_template.png";
 
-image.onload = function () {
-    canvas.width = image.width;
-    canvas.height = image.height;
-    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+cert.onload = function () {
+    canvas.width = cert.width;
+    canvas.height = cert.height;
+    ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
 
     // Add text to the canvas
     ctx.font = 'bold 30px Arial';
@@ -110,7 +110,7 @@ image.onload = function () {
 };
 
     const data = "pretty image"
-    const base64data = Buffer.from(image).toString('base64')
+    const base64data = Buffer.from(cert).toString('base64')
     const img = `data:png;base64,` + base64data // <-- This is so we can render it on the page
     setImage(img)
 
