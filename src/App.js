@@ -54,7 +54,7 @@ console.log("CreateImage function done");
     // const url = await uploadImage(imageData)
 
     // Mint NFT
-    // await mintImage(url)
+    await mintImage(url)
 
     setIsWaiting(false)
     setMessage("")
