@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { NFTStorage, File } from 'nft.storage'
 import { Buffer } from 'buffer';
 import { ethers } from 'ethers';
-import axios from 'axios';
+// import axios from 'axios';
 
 // Components
 import Spinner from 'react-bootstrap/Spinner';
@@ -45,11 +45,11 @@ function App() {
       return
     }
 
-    // setIsWaiting(true)
+    setIsWaiting(true)
 
     // Call AI API to generate a image based on description
     const imageData = await createImage()
-
+console.log("CreateImage function done");
     // Upload image to IPFS (NFT.Storage)
     // const url = await uploadImage(imageData)
 
@@ -60,62 +60,55 @@ function App() {
     setMessage("")
   }
 
-  const createImage = async () => {
+const createImage = async () => {
     setMessage("Generating Image...")
-//Stable diffusion section - > replace with child python process
-    // You can replace this with different model API's
-    //const URL = `https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-2`
+    
+    const canvas = document.createElement('canvas');
+    console.log("Canvas created");
+    
+    const cert = new Image();
 
-    // Send the request to stable diffusion
-    // const response = await axios({
-    //   url: URL,
-    //   method: 'POST',
-    //   headers: {
-    //     Authorization: `Bearer ${process.env.REACT_APP_HUGGING_FACE_API_KEY}`,
-    //     Accept: 'application/json',
-    //     'Content-Type': 'application/json',
-    //   },
-    //   data: JSON.stringify({
-    //     inputs: description, options: { wait_for_model: true },
-    //   }),
-    //   responseType: 'arraybuffer',
-    // })
-
-    // const type = response.headers['content-type']
-    // const data = response.data
-
-
-
-const canvas = document.getElementById("myCanvas");
-const ctx = canvas.getContext("2d");
-
-const cert = new Image();
-cert.src = "/Users/atmajkoppikar/Desktop/ai_nft_generator/Certificate_template.png";
-
-cert.onload = function () {
-    canvas.width = cert.width;
+    console.log("Image created in canvas");
+    
+    const ctx = canvas.getContext('2d');
+    console.log("Till here");
+    console.log(cert);
+    try {
+      cert.onload = (onerror) => {
+        console.log("Entered onload");
+        ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
+        ctx.font = 'bold 30px Arial';
+        ctx.fillStyle = 'black';
+        ctx.textAlign = 'center';
+        ctx.fillText('Pranav Bhide', 630, 430);
+        ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
+        ctx.fillText('Mid Journey Prompting', 970, 660);
+        ctx.fillText('Sakshi Surve ', 970, 800);
+        ctx.fillStyle = 'white';
+        ctx.fillText('6969', 85, 1105);
+        console.log("NFT done");
+        const base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+        console.log('Base64 data:', base64data);
+console.log('Canvas:', canvas);
+        const img = `data:image/png;base64,${base64data}`;
+        setImage(img);
+        setMessage("");
+      };
+      cert.src = 'Certificate_template.png';
+          canvas.width = cert.width;
     canvas.height = cert.height;
-    ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
-
-    // Add text to the canvas
-    ctx.font = 'bold 30px Arial';
-    ctx.fillStyle = 'black';
-    ctx.textAlign = 'center';
-    ctx.fillText('Pranav Bhide', 630, 430);
-    ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
-    ctx.fillText('Mid Journey Prompting', 970, 660);
-    ctx.fillText('Sakshi Surve ', 970, 800);
-    ctx.fillStyle = 'white';
-    ctx.fillText('6969', 85, 1105);
-};
-
-    const data = "pretty image"
-    const base64data = Buffer.from(cert).toString('base64')
-    const img = `data:png;base64,` + base64data // <-- This is so we can render it on the page
-    setImage(img)
-
+    } catch (err) {
+      console.log('Error: ', err);
+      setMessage("Error generating image")
+    }
+    
+    const data = "prettyimage"
+    console.log("Generated");
     return data
   }
+  
+
+
 
   const uploadImage = async (imageData) => {
     setMessage("Uploading Image...")
@@ -162,7 +155,7 @@ cert.onload = function () {
 
         <div className="image">
           {!isWaiting && image ? (
-            <img src={image} alt="AI generated image" />
+            <img src={image} alt="NFT certificate" />
           ) : isWaiting ? (
             <div className="image__placeholder">
               <Spinner animation="border" />

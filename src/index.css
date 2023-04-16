@@ -131,8 +131,8 @@ form input[type="submit"]:hover {
   align-items: center;
 
   max-width: 90%;
-  width: 512px;
-  height: 512px;
+  width: 712px;
+  height: 712px;
   margin: 0 25px;
   border: 3px solid var(--clr-blue);
   border-radius: 4px;
