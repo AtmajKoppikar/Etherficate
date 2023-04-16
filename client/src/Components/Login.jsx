@@ -1,14 +1,37 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "./firebase.js";
+import { useNavigate } from "react-router-dom";
 
 const Login = (props) => {
     const [email, setEmail] = useState("");
     const [pass, setPass] = useState("");
+    const navigate = useNavigate();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         console.log(email);
     };
+
+    function signIn() {
+        signInWithEmailAndPassword(auth, email, pass)
+            .then((userCredential) => {
+                // Signed in
+                const user = userCredential.user;
+                navigate("/courses");
+                // ...
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+            });
+    }
 
     return (
         <div className="auth-form-container">
@@ -33,8 +56,8 @@ const Login = (props) => {
                     name="password"
                 />
 
-                <button type="submit">
-                    <Link to="/courses">Log In</Link>
+                <button type="submit" onClick={signIn}>
+                    Log In
                 </button>
             </form>
             <button

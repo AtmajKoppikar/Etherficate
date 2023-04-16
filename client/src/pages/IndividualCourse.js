@@ -1,112 +1,107 @@
-import { useState } from 'react';
-import "./IndividualCourse.css";
+// export default IndividualCourse
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom'; // Import useParams from react-router-dom
+import Navbar from '../Components/Navbar';
+import { db } from '../Components/firebase';
+import { doc, getDoc } from "firebase/firestore";
+// import "./IndividualCourse.css";
 
 function IndividualCourse() {
-    const [currentVideo, setCurrentVideo] = useState(null);
-    const [mcqAnswers, setMcqAnswers] = useState({});
+    const { id } = useParams(); // Access the id parameter from URL path
+    const [courseData, setCourseData] = useState(null);
+    // Define a state variable to store the selected options
+    const [selectedOptions, setSelectedOptions] = useState([]);
 
-    const courses = [{
-        name: 'Course 1',
-        description: 'This is the description for course 1',
-        videos: [{ id: 'video1', title: 'Video 1', url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ', },],
-        mcqs: [
-            {
-                question: 'What is the capital of France?',
-                options: ['Paris', 'Berlin', 'London', 'Madrid'],
-                answer: 'Paris',
-            },
-            {
-                question: 'What is the largest country in the world?',
-                options: ['Russia', 'China', 'Canada', 'USA'],
-                answer: 'Russia',
-            },
-        ],
-    },
-    {
-        name: 'Course 2',
-        description: 'This is the description for course 2',
-        videos: [
-            {
-                id: 'video3',
-                title: 'Video 3',
-                url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
-            },
+    const handleOptionChange = (e, questionIndex) => {
+        const { value } = e.target;
 
-        ],
-        mcqs: [
-            {
-                question: 'What is the capital of Japan?',
-                options: ['Tokyo', 'Kyoto', 'Osaka', 'Hiroshima'],
-                answer: 'Tokyo',
-            },
-            {
-                question: 'What is the currency of Italy?',
-                options: ['Euro', 'Dollar', 'Pound', 'Yen'],
-                answer: 'Euro',
-            },
-        ],
-    },
-    ];
+        setSelectedOptions((prevSelectedOptions) => {
+            const newSelectedOptions = [...prevSelectedOptions];
+            newSelectedOptions[questionIndex] = value;
+            return newSelectedOptions;
+        });
+    }
 
-    const handleVideoClick = (videoId) => {
-        setCurrentVideo(videoId);
-    };
+    const handleGenerateCertificate = () => {
+        // Add your logic to generate the certificate here
+        console.log("Generate Certificate button clicked");
+    }
 
-    const handleMcqChange = (questionIndex, answerIndex) => {
-        setMcqAnswers((prevAnswers) => ({
-            ...prevAnswers,
-            [questionIndex]: answerIndex,
-        }));
-    };
+    useEffect(() => {
+        // Fetch individual course data from Firestore based on id
+        const fetchIndividualCourseData = async () => {
+            try {
+                const docRef = doc(db, "courses", id);
+                const docSnap = await getDoc(docRef);
+                if (docSnap.exists()) {
+                    setCourseData({ id: docSnap.id, ...docSnap.data() });
+                } else {
+                    console.error('No such document exists!');
+                }
+            } catch (error) {
+                console.error('Error fetching individual course data:', error);
+            }
+        };
 
-    const currentCourse = courses[0]; // You can modify this to display a different course
+        fetchIndividualCourseData();
+    }, [id]); // Trigger useEffect whenever id changes
+
+    if (!courseData) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <div className='container'>
-            <h1>{currentCourse.name}</h1>
-            <p>{currentCourse.description}</p>
-            <div>
-                <h2>Videos</h2>
-                {currentCourse.videos.map((video) => (
-                    <div key={video.id}>
-                        <h3>{video.title}</h3>
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/ZgMw__KdjiI" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        {/* <video src={video.url}></video> */}
-                        {/* <button onClick={() => handleVideoClick(video.id)}>Watch</button> */}
-                    </div>
-                ))}
-                {currentVideo && (
-                    <div>
-                        <h3>Current Video</h3>
-                        <p>{currentVideo}</p>
-                    </div>
-                )}
-            </div>
-            <div>
-                <h2>MCQs</h2>
-                {currentCourse.mcqs.map((mcq, index) => (
-                    <div key={index}>
-                        <h3>{mcq.question}</h3>
-                        {mcq.options.map((option, optionIndex) => (
-                            <div key={optionIndex}>
-                                <input
-                                    type="radio"
-                                    id={`mcq-${index}-${optionIndex}`}
-                                    name={`mcq-${index}`}
-                                    value={optionIndex}
-                                    onChange={() => handleMcqChange(index, optionIndex)}
-                                    checked={mcqAnswers[index] === optionIndex}
-                                />
-                                <label htmlFor={`mcq-${index}-${optionIndex}`}>{option}</label>
-                            </div>
-                        ))}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+        <>
+            <Navbar />
+            <div className=" my-5 container">
+                <div >
+                    <h1>{courseData.courseName}</h1>
+                </div>
+                <div >
+                    <h3>Video</h3>
 
+                    <iframe
+                        title={courseData.courseName}
+                        width="300"
+                        height="200"
+                        src={courseData.videoLink}
+                        frameBorder="0"
+                        allowFullScreen
+                    ></iframe>
+                </div>
+                <div >
+                    <h1>Quiz</h1>
+                    {courseData.questions.map((question, questionIndex) => (
+                        <div key={questionIndex}>
+                            <h4>Question {questionIndex + 1}</h4>
+                            <p>{question.question}</p>
+                            <ul>
+                                {question.options.map((option, optionIndex) => (
+                                    <li key={optionIndex}>
+                                        <input
+                                            type="radio"
+                                            name={`question_${questionIndex}`}
+                                            value={option}
+                                            checked={option === selectedOptions[questionIndex]}
+                                            onChange={(e) => handleOptionChange(e, questionIndex)}
+                                        />
+                                        {option}
+                                    </li>
+                                ))}
+                            </ul>
+                            {selectedOptions[questionIndex] === question.answer ? (
+                                <p>Correct answer!</p>
+                            ) : (
+                                <p>Incorrect answer.</p>
+                            )}
+                        </div>
+                    ))}
+                </div>
+                <button onClick={handleGenerateCertificate}>Generate Certificate</button>
+            </div>
+        </>
+    );
 }
 
+export default IndividualCourse;
 
-export default IndividualCourse

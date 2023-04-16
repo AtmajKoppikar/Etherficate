@@ -1,86 +1,51 @@
-/* Course title */
+.flex {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
-h1 {
-    font-size: 36px;
+.content {
+    background: #a9a9e9;
+}
+
+.headings {
+    outline: 2px solid green;
+    padding: 5px 5px;
+}
+
+.headings h1 {
+    padding: 20px 0px;
+    font-size: 43px;
     font-weight: bold;
-    margin-bottom: 20px;
+    margin: 0px;
+    color: white;
 }
 
-/* Course description */
-p {
-    font-size: 18px;
-    margin-bottom: 30px;
-}
-
-/* Video section */
-h2 {
-    font-size: 24px;
-    margin-bottom: 10px;
+.headings p {
+    margin: 0px;
 }
 
 .video {
-    margin-bottom: 20px;
+    outline: 2px solid red;
+    display: flex;
+    justify-content: center;
 }
 
-.video h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+iframe {
+    width: 60vw;
+    height: 600px;
 }
 
-.video p {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-.video button {
-    font-size: 16px;
-    padding: 10px 20px;
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.video button:hover {
-    background-color: #0062cc;
-}
-
-/* Current video */
-.current-video {
-    margin-top: 20px;
-}
-
-.current-video h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
-}
-
-.current-video p {
-    font-size: 16px;
-    margin-bottom: 10px;
-}
-
-/* MCQ section */
 .mcq {
-    margin-bottom: 20px;
+    margin: 0px 30px;
 }
 
-.mcq h3 {
-    font-size: 20px;
-    margin-bottom: 10px;
+label {
+    margin-left: 10px;
 }
 
-.mcq input[type="radio"] {
-    margin-right: 10px;
-    cursor: pointer;
-}
+.scrollable {
+    height: 500px;
 
-.mcq label {
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.mcq label:hover {
-    text-decoration: underline;
+    overflow-y: scroll;
 }

@@ -24,7 +24,8 @@ function App() {
                     <Route exact path="/" element={<HomePage />} />
                     <Route exact path="/courses" element={<CoursePage />} />
                     <Route exact path="/creator" element={<Creators />} />
-                    <Route exact path="/course" element={<IndividualCourse />} />
+                    {/* <Route path="/course" element={<IndividualCourse />} /> */}
+                    <Route path="/course/:id" element={<IndividualCourse />} />
                 </Routes>
             </Router>
             {/* <Auth />
