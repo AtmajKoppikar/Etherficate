@@ -68,9 +68,9 @@ function HomePage() {
                         <h1>Etherficate</h1>
                         <h3>CERTIFICATE SAVED WITH ETHERIUM</h3>
                     </div>
-                    <div className="search">
+                    {/* <div className="search">
                         <input type="search" name="search" placeholder="Search" />
-                    </div>
+                    </div> */}
                     <div className="link">
                         <button
 

@@ -33,7 +33,7 @@
 
 iframe {
     width: 60vw;
-    height: 600px;
+    height: 70vh;
 }
 
 .mcq {
@@ -46,6 +46,31 @@ label {
 
 .scrollable {
     height: 500px;
-
     overflow-y: scroll;
+}
+
+.video-container {
+    justify-content: space-around;
+}
+
+.generate-btn {
+    justify-content: center;
+}
+
+.generate-btn button {
+    border: 2px solid rgb(198, 99, 198);
+    padding: 1rem 1rem;
+    margin: 1.5rem 1rem;
+}
+
+.course-title {
+    margin: 0.5rem 1rem;
+}
+
+.course-quiz {
+    box-sizing: border-box;
+    border: 1px solid black;
+    width: 20vw;
+    height: 70vh;
+    padding: 3rem 2rem;
 }

@@ -1,1 +1,8 @@
-
+.course-thumbnail {
+    width: 100%;
+    height: 50%;
+}
+.course-thumbnail img {
+    width: 100%;
+    height: 100%;
+}

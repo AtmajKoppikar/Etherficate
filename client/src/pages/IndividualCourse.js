@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom'; // Import useParams from react-rou
 import Navbar from '../Components/Navbar';
 import { db } from '../Components/firebase';
 import { doc, getDoc } from "firebase/firestore";
-// import "./IndividualCourse.css";
+import "./IndividualCourse.css";
 
 function IndividualCourse() {
     const { id } = useParams(); // Access the id parameter from URL path
@@ -54,50 +54,52 @@ function IndividualCourse() {
         <>
             <Navbar />
             <div className=" my-5 container">
-                <div >
+                <div className='flex course-title' >
                     <h1>{courseData.courseName}</h1>
                 </div>
-                <div >
-                    <h3>Video</h3>
+                {/* <h3>Video</h3> */}
+                <div className='flex video-container'>
+                    <div>
+                        <iframe
+                            title={courseData.courseName}
+                            width="300"
+                            height="200"
+                            src={courseData.videoLink}
+                            frameBorder="0"
+                            allowFullScreen
+                        ></iframe>
+                    </div>
+                    <div className='course-quiz scrollable'>
+                        <h1>Quiz</h1>
+                        {courseData.questions.map((question, questionIndex) => (
+                            <div key={questionIndex}>
+                                <h4>Question {questionIndex + 1}</h4>
+                                <p>{question.question}</p>
+                                <ul>
+                                    {question.options.map((option, optionIndex) => (
+                                        <li key={optionIndex}>
+                                            <input
+                                                type="radio"
+                                                name={`question_${questionIndex}`}
+                                                value={option}
+                                                checked={option === selectedOptions[questionIndex]}
+                                                onChange={(e) => handleOptionChange(e, questionIndex)}
+                                            />
+                                            {option}
+                                        </li>
+                                    ))}
+                                </ul>
+                                {selectedOptions[questionIndex] === question.answer ? (
+                                    <p>Correct answer!</p>
+                                ) : (
+                                    <p>Incorrect answer.</p>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+                </div>
+                <div className='flex generate-btn'>                 <button onClick={handleGenerateCertificate}>Generate Certificate</button></div>
 
-                    <iframe
-                        title={courseData.courseName}
-                        width="300"
-                        height="200"
-                        src={courseData.videoLink}
-                        frameBorder="0"
-                        allowFullScreen
-                    ></iframe>
-                </div>
-                <div >
-                    <h1>Quiz</h1>
-                    {courseData.questions.map((question, questionIndex) => (
-                        <div key={questionIndex}>
-                            <h4>Question {questionIndex + 1}</h4>
-                            <p>{question.question}</p>
-                            <ul>
-                                {question.options.map((option, optionIndex) => (
-                                    <li key={optionIndex}>
-                                        <input
-                                            type="radio"
-                                            name={`question_${questionIndex}`}
-                                            value={option}
-                                            checked={option === selectedOptions[questionIndex]}
-                                            onChange={(e) => handleOptionChange(e, questionIndex)}
-                                        />
-                                        {option}
-                                    </li>
-                                ))}
-                            </ul>
-                            {selectedOptions[questionIndex] === question.answer ? (
-                                <p>Correct answer!</p>
-                            ) : (
-                                <p>Incorrect answer.</p>
-                            )}
-                        </div>
-                    ))}
-                </div>
-                <button onClick={handleGenerateCertificate}>Generate Certificate</button>
             </div>
         </>
     );

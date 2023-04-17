@@ -4,6 +4,7 @@ import Navbar from '../Components/Navbar';
 import { db } from '../Components/firebase';
 import { doc, collection, getDocs } from "firebase/firestore";
 import IndividualCourse from './IndividualCourse';
+import "./CoursePage.css";
 
 
 function CoursePage() {
@@ -33,7 +34,9 @@ function CoursePage() {
                     {courseData.map((card) => (
                         <div className="col" key={card.id}>
                             <div className="card h-100">
-                                <img src={card.thumbnailImage} className="card-img-top" alt="Palm Springs Road" />
+                                <div className='course-thumbnail'>
+                                    <img src={card.thumbnailImage} className="card-img-top" alt="Palm Springs Road" />
+                                </div>
                                 <div className="card-body">
                                     <h5 className="card-title">{card.courseName}</h5>
                                     <h5 className="author">Author: {card.instructorName}</h5>
