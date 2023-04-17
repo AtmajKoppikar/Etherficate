@@ -51,7 +51,8 @@ function App() {
     const imageData = await createImage()
 console.log("CreateImage function done");
     // Upload image to IPFS (NFT.Storage)
-    // const url = await uploadImage(imageData)
+    const url = await uploadImage(imageData)
+    console.log(url);
 
     // Mint NFT
     // await mintImage(url)
@@ -80,7 +81,7 @@ const createImage = async () => {
         ctx.font = 'bold 30px Arial';
         ctx.fillStyle = 'black';
         ctx.textAlign = 'center';
-        ctx.fillText('Pranav Bhide', 630, 430);
+        ctx.fillText(name, 630, 430);
         ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
         ctx.fillText('Mid Journey Prompting', 970, 660);
         ctx.fillText('Sakshi Surve ', 970, 800);
@@ -89,20 +90,20 @@ const createImage = async () => {
         console.log("NFT done");
         const base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
         console.log('Base64 data:', base64data);
-console.log('Canvas:', canvas);
+        console.log('Canvas:', canvas);
         const img = `data:image/png;base64,${base64data}`;
         setImage(img);
         setMessage("");
       };
       cert.src = 'Certificate_template.png';
-          canvas.width = cert.width;
-    canvas.height = cert.height;
+      canvas.width = cert.width;
+      canvas.height = cert.height;
     } catch (err) {
       console.log('Error: ', err);
       setMessage("Error generating image")
     }
     
-    const data = "prettyimage"
+    const data = canvas.data;
     console.log("Generated");
     return data
   }
@@ -118,13 +119,14 @@ console.log('Canvas:', canvas);
 
     // Send request to store image
     const { ipnft } = await nftstorage.store({
-      image: new File([imageData], "image.jpeg", { type: "image/jpeg" }),
+      image: new File([imageData], "image.png", { type: "image/png" }),
       name: name,
       description: description,
     })
 
     // Save the URL
     const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`
+    console.log(url)
     setURL(url)
 
     return url
@@ -168,7 +170,7 @@ console.log('Canvas:', canvas);
       </div>
 
       {!isWaiting && url && (
-        <p>
+        <p className = "metadata">
           View&nbsp;<a href={url} target="_blank" rel="noreferrer">Metadata</a>
         </p>
       )}
