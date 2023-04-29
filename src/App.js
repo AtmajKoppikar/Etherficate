@@ -35,6 +35,7 @@ function App() {
 
     const nft = new ethers.Contract(config[network.chainId].nft.address, NFT, provider)
     setNFT(nft)
+    console.log("nft",nft);
   }
 
   const submitHandler = async (e) => {
