@@ -14,6 +14,9 @@ import NFT from './abis/NFT.json'
 // Config
 import config from './config.json';
 
+//Pinata
+import PinataSDK from '@pinata/sdk';
+
 function App() {
   const [provider, setProvider] = useState(null)
   const [account, setAccount] = useState(null)
@@ -116,14 +119,49 @@ const createImage = async () => {
     setMessage("Uploading Image...")
 
     // Create instance to NFT.Storage
-    const nftstorage = new NFTStorage({ token: process.env.REACT_APP_NFT_STORAGE_API_KEY })
+    // const nftstorage = new NFTStorage({ token: process.env.REACT_APP_NFT_STORAGE_API_KEY })
 
     // Send request to store image
-    const { ipnft } = await nftstorage.store({
-      image: new File([imageData], "image.png", { type: "image/png" }),
-      name: name,
-      description: description,
-    })
+    // const { ipnft } = await nftstorage.store({
+    //   image: new File([imageData], "image.png", { type: "image/png" }),
+    //   name: name,
+    //   description: description,
+    // })
+
+          
+  // Uploading to IPFS
+
+  const pinata = PinataSDK('1f9b86f0be256b9d8e24', '01fad4b0ceca6d66c6fa2193b91cea549dceb308cb4d11135a5d831f85c81986');
+  const { imageData } = image;
+  const blob = new Blob([imageData], { type: 'image/png' });
+
+  const formData = new FormData();
+  formData.append('file', blob, 'image.png');
+
+  pinata.pinFileToIPFS(formData, options)
+  .then((response) => {
+    console.log(response);
+  })
+  .catch((error) => {
+    console.error(error);
+  });
+
+  fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+    method: 'POST',
+    headers: {
+      'pinata_api_key': '1f9b86f0be256b9d8e24',
+      'pinata_secret_api_key': '01fad4b0ceca6d66c6fa2193b91cea549dceb308cb4d11135a5d831f85c81986'
+    },
+    body: formData
+  })
+  .then(response => response.json())
+  .then(result => {
+    // Log the IPFS hash for the uploaded file
+    console.log(result.IpfsHash);
+  })
+  .catch(error => {
+    console.error(error);
+  });
 
     // Save the URL
     const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`
@@ -177,6 +215,7 @@ const createImage = async () => {
       )}
     </div>
   );
+
 }
 
 export default App;
