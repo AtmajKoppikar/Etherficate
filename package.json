@@ -55,11 +55,19 @@
     "@types/mocha": "^9.1.1",
     "chai": "^4.3.7",
     "ethers": "^5.7.2",
-    "hardhat": "^2.12.5",
+    "hardhat": "^2.14.0",
     "hardhat-gas-reporter": "^1.0.9",
     "solidity-coverage": "^0.8.2",
     "ts-node": "^10.9.1",
     "typechain": "^8.1.1",
     "typescript": "^5.0.2"
-  }
+  },
+  "description": "Our project, Etherficate, provides a decentralized E-learning platform where the certificates earned by students are stored on Ethereum blockchain as NFTs.",
+  "main": "hardhat.config.js",
+  "directories": {
+    "test": "test"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

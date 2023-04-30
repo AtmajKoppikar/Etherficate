@@ -14,6 +14,9 @@ import NFT from './abis/NFT.json'
 // Config
 import config from './config.json';
 
+//Pinata
+import PinataSDK from '@pinata/sdk';
+
 function App() {
   const [provider, setProvider] = useState(null)
   const [account, setAccount] = useState(null)
@@ -177,6 +180,34 @@ const createImage = async () => {
       )}
     </div>
   );
+
+
+// Uploading to IPFS
+
+const pinata = PinataSDK('1f9b86f0be256b9d8e24', '01fad4b0ceca6d66c6fa2193b91cea549dceb308cb4d11135a5d831f85c81986');
+const { imageData } = image;
+const blob = new Blob([imageData], { type: 'image/png' });
+
+const formData = new FormData();
+formData.append('file', blob, 'image.png');
+
+fetch('https://api.pinata.cloud/pinning/pinFileToIPFS', {
+  method: 'POST',
+  headers: {
+    'pinata_api_key': '<your_api_key>',
+    'pinata_secret_api_key': '<your_api_secret>'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(result => {
+  // Log the IPFS hash for the uploaded file
+  console.log(result.IpfsHash);
+})
+.catch(error => {
+  console.error(error);
+});
+
 }
 
 export default App;
