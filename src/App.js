@@ -63,7 +63,7 @@ function App() {
       console.log(url);
   
       // Mint NFT
-      // await mintImage(url)
+      await mintImage(url)
   
       setIsWaiting(false)
       setMessage("")
@@ -95,10 +95,10 @@ function App() {
           ctx.font = 'bold 30px Arial';
           ctx.fillStyle = 'black';
           ctx.textAlign = 'left';
-          ctx.fillText(name, canvas.width*0.35, canvas.height*.0375);
+          ctx.fillText(name, canvas.width*0.35, canvas.height*0.375);
           ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', canvas.width*0.35, canvas.height*0.455);
           ctx.textAlign = 'center'
-          ctx.fillText('Mid Journey Prompting', canvas.width/1.66, canvas.height*0.7);
+          ctx.fillText('Mid Journey Prompting', canvas.width/1.66, canvas.height*0.575);
           ctx.fillText('Sakshi Surve ', canvas.width/1.66, canvas.height*0.7);
           ctx.fillStyle = 'white';
           ctx.fillText('6969', canvas.width*0.05, canvas.height*0.976);
@@ -172,18 +172,18 @@ function App() {
   }
   
   
+  
   const mintImage = async (tokenURI) => {
     setMessage("Waiting for Mint...")
-
+    
     const signer = await provider.getSigner()
     const transaction = await nft.connect(signer).mint(tokenURI, { value: ethers.utils.parseUnits("1", "ether") })
     await transaction.wait()
   }
-
+  
   useEffect(() => {
     loadBlockchainData()
   }, [])
-
   return (
     <div>
       <Navigation account={account} setAccount={setAccount} />
