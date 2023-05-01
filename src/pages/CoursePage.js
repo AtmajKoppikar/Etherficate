@@ -1,111 +1,61 @@
-import React from 'react'
-import Navbar from '../Components/Navbar'
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom'; // Import Link from react-router-dom
+import Navbar from '../Components/Navbar';
+import { db } from '../Components/firebase';
+import { doc, collection, getDocs } from "firebase/firestore";
+import IndividualCourse from './IndividualCourse';
+import "./CoursePage.css";
+
 
 function CoursePage() {
-    const cardDetails = [
-        {
-            courseName: "Python",
-            authorName: "Yash",
-            courseDescription: "Python by Yash is the most amazing course."
-        },
-        {
-            courseName: "JS",
-            authorName: "Yash",
-            courseDescription: "JS by Yash is the most amazing course."
-        },
-        {
-            courseName: "C++",
-            authorName: "Yash",
-            courseDescription: "C++ by Yash is the most amazing course."
-        },
-        {
-            courseName: "Java",
-            authorName: "Yash",
-            courseDescription: "Java by Yash is the most amazing course."
-        },
-        {
-            courseName: "ML",
-            authorName: "Yash",
-            courseDescription: "ML by Yash is the most amazing course."
-        },
-    ]
+    const [courseData, setCourseData] = useState([]);
+
+    useEffect(() => {
+        // Fetch course data from Firestore
+        const fetchCourseData = async () => {
+            try {
+                const snapshot = await getDocs(collection(db, "courses"));
+                const coursesData = snapshot.docs.map((doc) => ({ id: doc.id, ...doc.data() }));
+                setCourseData(coursesData);
+            } catch (error) {
+                console.error('Error fetching course data:', error);
+            }
+        };
+
+        fetchCourseData();
+    }, []);
+
     return (
         <>
+
             <Navbar />
             <div className="container my-5">
-                <div class="row row-cols-1 row-cols-md-4 g-4">
-                    {
-                        cardDetails.map((card) =>
-                            <div class="col">
-                                <div class="card h-100">
-                                    <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/044.webp" class="card-img-top"
-                                        alt="Skyscrapers" />
-                                    <div class="card-body">
-                                        <h5 class="card-title">{card.courseName}</h5>
-                                        <h5 class="author">Author : {card.authorName}</h5>
-                                        <p class="card-text">
-                                            {card.courseDescription}
-                                        </p>
-                                        <button>View course</button>
-                                    </div>
-                                    {/* <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div> */}
+                <div className="row row-cols-1 row-cols-md-4 g-4">
+                    {courseData.map((card) => (
+                        <div className="col" key={card.id}>
+                            <div className="card h-100">
+                                <div className='course-thumbnail'>
+                                    <img src={card.thumbnailImage} className="card-img-top" alt="Palm Springs Road" />
                                 </div>
-                            </div>)
-                    }
-                    {/* <div class="col">
-                        <div class="card h-100">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/043.webp" class="card-img-top"
-                                alt="Los Angeles Skyscrapers" />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top"
-                                alt="Palm Springs Road" />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This card has even longer content than the first to show
-                                    that equal height action.
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
+                                <div className="card-body">
+                                    <h5 className="card-title">{card.courseName}</h5>
+                                    <h5 className="author">Author: {card.instructorName}</h5>
+                                    <p className="card-text">
+                                        {card.courseDescription}
+                                    </p>
+                                </div>
+
+                                {/* Use Link to navigate to IndividualCourse.js */}
+                                <Link to={`/course/${card.id}`}>
+                                    <button>View course</button>
+                                </Link>
                             </div>
                         </div>
-                    </div>
-                    <div class="col">
-                        <div class="card h-100">
-                            <img src="https://mdbcdn.b-cdn.net/img/new/standard/city/042.webp" class="card-img-top"
-                                alt="Palm Springs Road" />
-                            <div class="card-body">
-                                <h5 class="card-title">Card title</h5>
-                                <p class="card-text">
-                                    This is a wider card with supporting text below as a natural lead-in to
-                                    additional content. This card has even longer content than the first to show
-                                    that equal height action.
-                                </p>
-                            </div>
-                            <div class="card-footer">
-                                <small class="text-muted">Last updated 3 mins ago</small>
-                            </div>
-                        </div>
-                    </div> */}
+                    ))}
                 </div>
             </div>
         </>
     )
 }
 
-export default CoursePage
+export default CoursePage;

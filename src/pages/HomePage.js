@@ -52,8 +52,8 @@ function HomePage() {
                             <li><a href="$">About us</a></li>
                         </ul>
                     </div>
-                    <div className="login">
-                        <Link style={{ color: 'white' }} to='/auth'>Login</Link>
+                    <div >
+                        <Link className="login" to='/auth'>Login</Link>
                     </div>
                     <div className="cart">
                         <img className="left" src="img/cart-icon.svg" alt=""></img>
