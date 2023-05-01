@@ -40,99 +40,138 @@ function App() {
 
   const submitHandler = async (e) => {
     e.preventDefault()
-
+  
     if (name === "" || description === "") {
       window.alert("Please provide a name and description")
       return
     }
-
+  
     setIsWaiting(true)
-
-    // Call AI API to generate a image based on description
-    const imageData = await createImage()
-console.log("CreateImage function done");
-    // Upload image to IPFS (NFT.Storage)
-    const url = await uploadImage(imageData)
-    console.log(url);
-
-    // Mint NFT
-    // await mintImage(url)
-
-    setIsWaiting(false)
-    setMessage("")
+  
+    try {
+      // Call function to generate a image based on description
+      const imageData = await createImage()
+      console.log("CreateImage function done");
+      console.log(imageData);
+      // Decode base64-encoded image data into binary data
+      const binaryImageData = Buffer.from(imageData, 'base64')
+  
+      console.log(binaryImageData);
+  
+      // Upload image to IPFS (NFT.Storage)
+      const url = await uploadImage(binaryImageData)
+      console.log(url);
+  
+      // Mint NFT
+      // await mintImage(url)
+  
+      setIsWaiting(false)
+      setMessage("")
+    } catch (error) {
+      console.error(error)
+      setIsWaiting(false)
+      setMessage("Error creating NFT")
+    }
   }
-
-const createImage = async () => {
+  
+  const createImage = async () => {
     setMessage("Generating Image...")
     
     const canvas = document.createElement('canvas');
     console.log("Canvas created");
-    
     const cert = new Image();
-
+  
     console.log("Image created in canvas");
     
     const ctx = canvas.getContext('2d');
     console.log("Till here");
     console.log(cert);
+    let base64data = "";
     try {
-      cert.onload = (onerror) => {
-        console.log("Entered onload");
-        ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
-        ctx.font = 'bold 30px Arial';
-        ctx.fillStyle = 'black';
-        ctx.textAlign = 'center';
-        ctx.fillText(name, 630, 430);
-        ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
-        ctx.fillText('Mid Journey Prompting', 970, 660);
-        ctx.fillText('Sakshi Surve ', 970, 800);
-        ctx.fillStyle = 'white';
-        ctx.fillText('6969', 85, 1105);
-        console.log("NFT done");
-        const base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
-        console.log('Base64 data:', base64data);
-        console.log('Canvas:', canvas);
-        const img = `data:image/png;base64,${base64data}`;
-        setImage(img);
-        setMessage("");
-      };
+      const base64Promise = new Promise((resolve, reject) => {
+        cert.onload = (onerror) => {
+          console.log("Entered onload");
+          ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
+          ctx.font = 'bold 30px Arial';
+          ctx.fillStyle = 'black';
+          ctx.textAlign = 'left';
+          ctx.fillText(name, canvas.width*0.35, canvas.height*.0375);
+          ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', canvas.width*0.35, canvas.height*0.455);
+          ctx.textAlign = 'center'
+          ctx.fillText('Mid Journey Prompting', canvas.width/1.66, canvas.height*0.7);
+          ctx.fillText('Sakshi Surve ', canvas.width/1.66, canvas.height*0.7);
+          ctx.fillStyle = 'white';
+          ctx.fillText('6969', canvas.width*0.05, canvas.height*0.976);
+          console.log("NFT done");
+          base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
+          console.log('Base64 data:', base64data);
+          console.log('Canvas:', canvas);
+          const img = `data:image/png;base64,${base64data}`;
+          setImage(img);
+          setMessage("");
+          resolve(base64data);
+        };
+      });
       cert.src = 'Certificate_template.png';
       canvas.width = cert.width;
       canvas.height = cert.height;
+  
+      base64data = await base64Promise;
+      console.log("Generated");
+      console.log(base64data);
+  
     } catch (err) {
       console.log('Error: ', err);
       setMessage("Error generating image")
     }
-    
-    const data = canvas.data;
-    console.log("Generated");
-    return data
+  
+    return base64data;
   }
   
 
 
+  const uploadImage = async (binaryImageData) => {
 
-  const uploadImage = async (imageData) => {
-    setMessage("Uploading Image...")
+    if (!binaryImageData) {
+      throw new Error('No image data found');
+    }
 
     // Create instance to NFT.Storage
     const nftstorage = new NFTStorage({ token: process.env.REACT_APP_NFT_STORAGE_API_KEY })
+  
+    setMessage("Uploading Image...")
+    console.log("Binary image data is not null.");
+    console.log(binaryImageData);
+    const imageBlob = new Blob([binaryImageData], { type: 'image/png' });
+  
+    //const imageBlob = binaryImageData;
+    const imageHash = await nftstorage.storeBlob(imageBlob);
+    console.log("Image Hash:", imageBlob);
+
+    imageBlob.name = "Ether.png";
+    console.log(imageBlob.name);
 
     // Send request to store image
     const { ipnft } = await nftstorage.store({
-      image: new File([imageData], "image.png", { type: "image/png" }),
-      name: name,
-      description: description,
+        image: imageBlob,
+        name: "Etherficate.png",
+        description: "TestNet Etherficate Certificate!",
+        attributes: [
+         { trait_type: "Certificate issuer", value: "Etherficate" },
+       ],
     })
+    
+   
 
     // Save the URL
     const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`
     console.log(url)
     setURL(url)
-
+  
     return url
   }
-
+  
+  
   const mintImage = async (tokenURI) => {
     setMessage("Waiting for Mint...")
 
