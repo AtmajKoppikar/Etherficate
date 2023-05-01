@@ -50,10 +50,10 @@ function App() {
 
     // Call AI API to generate a image based on description
     const imageData = await createImage()
-    console.log("CreateImage function done");
+console.log("CreateImage function done");
     // Upload image to IPFS (NFT.Storage)
-    // const url = await uploadImage(imageData)
-    // console.log(url);
+    const url = await uploadImage(imageData)
+    console.log(url);
 
     // Mint NFT
     // await mintImage(url)
@@ -81,21 +81,19 @@ const createImage = async () => {
         ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
         ctx.font = 'bold 30px Arial';
         ctx.fillStyle = 'black';
-        ctx.textAlign = 'left';
-        ctx.fillText(name, canvas.width*0.35, canvas.height*0.375);
-        ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', canvas.width*0.35, canvas.height*0.455);
         ctx.textAlign = 'center';
-        ctx.fillText('Mid Journey Prompting', canvas.width/1.66, canvas.height*0.58);
-        ctx.fillText('Sakshi Surve ', canvas.width/1.66, canvas.height*0.7);
+        ctx.fillText(name, 630, 430);
+        ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
+        ctx.fillText('Mid Journey Prompting', 970, 660);
+        ctx.fillText('Sakshi Surve ', 970, 800);
         ctx.fillStyle = 'white';
-        ctx.fillText('6969', canvas.width*0.05, canvas.height*0.976);
+        ctx.fillText('6969', 85, 1105);
         console.log("NFT done");
         const base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
         console.log('Base64 data:', base64data);
         console.log('Canvas:', canvas);
         const img = `data:image/png;base64,${base64data}`;
         setImage(img);
-        console.log("Image data",img.data);
         setMessage("");
       };
       cert.src = 'Certificate_template.png';
@@ -107,7 +105,6 @@ const createImage = async () => {
     }
     
     const data = canvas.data;
-    console.log("Canvas.data = ",canvas.data)
     console.log("Generated");
     return data
   }
