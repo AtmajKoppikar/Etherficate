@@ -94,13 +94,14 @@ function App() {
           ctx.drawImage(cert, 0, 0, canvas.width, canvas.height);
           ctx.font = 'bold 30px Arial';
           ctx.fillStyle = 'black';
-          ctx.textAlign = 'center';
-          ctx.fillText(name, 630, 430);
-          ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', 930, 515);
-          ctx.fillText('Mid Journey Prompting', 970, 660);
-          ctx.fillText('Sakshi Surve ', 970, 800);
+          ctx.textAlign = 'left';
+          ctx.fillText(name, canvas.width*0.35, canvas.height*.0375);
+          ctx.fillText('0x14dC79964da2C08b23698B3D3cc7Ca32193d9955', canvas.width*0.35, canvas.height*0.455);
+          ctx.textAlign = 'center'
+          ctx.fillText('Mid Journey Prompting', canvas.width/1.66, canvas.height*0.7);
+          ctx.fillText('Sakshi Surve ', canvas.width/1.66, canvas.height*0.7);
           ctx.fillStyle = 'white';
-          ctx.fillText('6969', 85, 1105);
+          ctx.fillText('6969', canvas.width*0.05, canvas.height*0.976);
           console.log("NFT done");
           base64data = canvas.toDataURL('image/png').replace(/^data:image\/png;base64,/, '');
           console.log('Base64 data:', base64data);
