@@ -54,11 +54,11 @@ function IndividualCourse() {
         <>
             <Navbar />
             <div className=" my-5 container">
-                <div className='flex course-title' >
+                <div className='flexx course-title' >
                     <h1>{courseData.courseName}</h1>
                 </div>
                 {/* <h3>Video</h3> */}
-                <div className='flex video-container'>
+                <div className='flexx video-container'>
                     <div>
                         <iframe
                             title={courseData.courseName}
@@ -98,7 +98,7 @@ function IndividualCourse() {
                         ))}
                     </div>
                 </div>
-                <div className='flex generate-btn'>                 <button onClick={handleGenerateCertificate}>Generate Certificate</button></div>
+                <div className='flexx generate-btn'>                 <button onClick={handleGenerateCertificate}>Generate Certificate</button></div>
 
             </div>
         </>

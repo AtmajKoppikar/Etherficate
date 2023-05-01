@@ -66,12 +66,22 @@ body {
     padding: 0px 10px;
 }
 .login {
-    color: white;
+    color: #0a2084;
     font-weight: 500;
     text-decoration: none;
     font-size: 25px;
     margin: 0px 15px;
     padding: 0px 10px;
+    border: 2px solid #262626;
+    border-radius: 10px;
+    padding: 5px 15px;
+    background-color: white;
+}
+.login:hover {
+    background-color: #0a2084;
+    color: white;
+    transition: all 0.3s ease;
+    border: white 2px solid;
 }
 
 .left {
@@ -146,7 +156,7 @@ body {
     margin: 5px 5px 5px 100px;
     padding: 10px 10px 10px 10px;
     border-radius: 25px;
-    background-color: blue;
+    background-color: #0a2084;
     color: white;
     border: none;
 }

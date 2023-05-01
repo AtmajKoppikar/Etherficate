@@ -52,8 +52,8 @@ function HomePage() {
                             <li><a href="$">About us</a></li>
                         </ul>
                     </div>
-                    <div className="login">
-                        <Link style={{ color: 'white' }} to='/auth'>Login</Link>
+                    <div >
+                        <Link className="login" to='/auth'>Login</Link>
                     </div>
                     <div className="cart">
                         <img className="left" src="img/cart-icon.svg" alt=""></img>
@@ -68,9 +68,9 @@ function HomePage() {
                         <h1>Etherficate</h1>
                         <h3>CERTIFICATE SAVED WITH ETHERIUM</h3>
                     </div>
-                    {/* <div className="search">
+                    <div className="search">
                         <input type="search" name="search" placeholder="Search" />
-                    </div> */}
+                    </div>
                     <div className="link">
                         <button
 
