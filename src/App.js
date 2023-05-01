@@ -160,21 +160,7 @@ function App() {
        ],
     })
     
-    // const imageFile = new File([imageBlob], "Etherficate.png", { type: "image/png" });
-
-
-    // const metadata = {
-    //   name: "Etherficate",
-    //   description: "TestNet Etherficate Certificate!",
-    //   image: imageFile,
-    //   attributes: [
-    //     { trait_type: "Certificate issuer", value: "Etherficate" },
-    //   ],
-    // };
-    
-    // const { ipnft } = await nftstorage.store(metadata);
-
-
+   
 
     // Save the URL
     const url = `https://ipfs.io/ipfs/${ipnft}/metadata.json`
