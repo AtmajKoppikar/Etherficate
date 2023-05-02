@@ -42,7 +42,7 @@ function HomePage() {
             <div className="start">
                 <div className="navbar flex">
                     <div className="right">
-                        <img src="img/logo-icon.svg" alt=""></img>
+                        <img src="site_logo.png" alt=""></img>
                     </div>
                     <div className="nav-content">
                         <ul className="flex">

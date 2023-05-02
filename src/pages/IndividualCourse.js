@@ -100,7 +100,7 @@ function IndividualCourse() {
                     </div>
                 </div>
                 <div className='flexx generate-btn'>       
-                <Link to={`/Certificate/${id}`}>
+                <Link to={`/Certificate`}>
                 <button >Generate Certificate</button>
                 </Link>         
                 </div>    
