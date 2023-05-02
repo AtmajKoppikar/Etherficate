@@ -177,7 +177,7 @@ function CertificatePage() {
     setMessage("Waiting for Mint...")
     
     const signer = await provider.getSigner()
-    const transaction = await nft.connect(signer).mint(tokenURI, { value: ethers.utils.parseUnits("1", "ether") })
+    const transaction = await nft.connect(signer).mint(tokenURI, { value: ethers.utils.parseUnits("0.7", "ether") })
     await transaction.wait()
   }
   

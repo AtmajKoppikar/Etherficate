@@ -40,11 +40,12 @@ body {
 }
 
 .right img {
-    border: 2px solid black;
-    width: 40px;
+    /* border: 2px solid white;  */
+    width: 30px;
     margin: 5px 5px 5px 5px;
-    padding: 5px 5px 5px 5px;
-    filter: invert(1);
+    /* padding: -10px 5px 5px 5px; */
+    padding-left: -10px;
+    /* filter: invert(1);s */
 }
 
 .nav-content {
