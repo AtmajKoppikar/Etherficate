@@ -91,3 +91,15 @@
     cursor: pointer;
     margin-top: 20px;
 }
+
+#courseName, #instructorName{
+    width: 530%;
+}
+
+#courseDescription{
+    width: 560%;
+}
+
+#videoLink, #thumbnailImage{
+    width: 580%;
+}

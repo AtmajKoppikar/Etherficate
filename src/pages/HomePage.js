@@ -42,7 +42,7 @@ function HomePage() {
             <div className="start">
                 <div className="navbar flex">
                     <div className="right">
-                        <img src="site_logo.png" alt=""></img>
+                        <img src="https://www.pngkey.com/png/full/264-2645391_ethereum-white-logo.png" alt=""></img>
                     </div>
                     <div className="nav-content">
                         <ul className="flex">
@@ -93,9 +93,9 @@ function HomePage() {
                         <h1> Courses</h1>
                         <h3>Start, switch, or advance your career with more than 5,200 courses.</h3>
                     </div>
-                    <div className="link">
+                    {/* <div className="link">
                         <button>BROWSE COURSES</button>
-                    </div>
+                    </div> */}
                 </div>
                 <div className="card-container flex">
                     <div className="card-section">
